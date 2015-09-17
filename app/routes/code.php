@@ -9,7 +9,6 @@ use Shorty\Models\Link;
 
 $app->get('/:code', function ($code) use ($app) {
     $link = Link::where('code', $code)->first();
-    var_dump($link);
 
     if (!$link) {
         $app->notFound();
