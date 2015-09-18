@@ -7,6 +7,8 @@
  */
 
 use Shorty\Models\Link;
+use Shorty\Presenters\ErrorPresenter as Error;
+use Shorty\Presenters\LinkPresenter;
 
 $app->post('/api/generate', function () use ($app)
 {
@@ -15,14 +17,40 @@ $app->post('/api/generate', function () use ($app)
     if (empty($payload) || empty(trim($payload->url))) {
         $app->response->setStatus(400);
         return $app->response->write(
-            json_encode([
-                "error" => [
-                    "code" => 1000,
-                    "message" => "A URL is required"
-                ]
-            ])
+            new Error(1000, 'A url is required')
         );
     }
-//    $response = Link::where('url', $payload->url)->first();
-//    var_dump($response->code);
+
+    if (!filter_var($payload->url, FILTER_VALIDATE_URL)) {
+        $app->response->setStatus(400);
+        return $app->response->write(
+            new Error(1001, 'A valid url is required')
+        );
+    }
+
+    $link = Link::where('url', $payload->url)->first();
+
+    if ($link) {
+        $app->response->setStatus(201);
+        return $app->response->write(
+            new LinkPresenter($link)
+        );
+    }
+
+    $newLink = Link::create([
+        'url'=>$payload->url
+    ]);
+
+    $newLink->update([
+        "code" => base_convert($newLink->id, 10, 36)
+    ]);
+
+    return $app->response->write(json_encode([
+        "url"=>$payload->url,
+        "generated" => [
+            "url" => $app->config('baseUrl')."/".$newLink->code,
+            "code" => $newLink->code
+        ]
+    ]));
+
 });
