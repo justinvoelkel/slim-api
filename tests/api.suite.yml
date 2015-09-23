@@ -1,0 +1,8 @@
+class_name: ApiTester
+modules:
+    enabled:
+        - \Helper\Api
+        - REST:
+            url: '192.168.56.101/api/'
+            depends: PhpBrowser
+            part: Json

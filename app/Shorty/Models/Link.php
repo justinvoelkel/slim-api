@@ -12,6 +12,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 Class Link extends Eloquent
 {
-    public $table = 'links';
-    public $fillable = ['url','code'];
+    protected $table = 'links';
+    protected $fillable = ['url','code'];
+
+    public function generateShortcode()
+    {
+        return  base_convert(($this->id + 100000), 10, 36);
+
+    }
 }

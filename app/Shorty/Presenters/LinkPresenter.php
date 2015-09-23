@@ -9,6 +9,7 @@
 namespace Shorty\Presenters;
 
 use Shorty\Models\Link;
+use Slim\Slim;
 
 class LinkPresenter extends BasePresenter
 {
@@ -25,7 +26,7 @@ class LinkPresenter extends BasePresenter
             [
                 "url"=>$this->link->url,
                 "generated" => [
-                    "url" => "",
+                    "url" => Slim::getInstance()->config('baseUrl').'/'.$this->link->code,
                     "code" => $this->link->code
                 ]
             ]

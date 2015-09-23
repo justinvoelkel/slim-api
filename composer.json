@@ -6,6 +6,10 @@
   },
   "require":{
       "slim/slim":"~2.0",
-      "illuminate/database": "5.0.*"
+      "illuminate/database": "5.0.*",
+    "guzzlehttp/guzzle": "~6.0",
+    "phpunit/phpunit": "4.8.*",
+    "behat/behat": "2.5.*",
+    "codeception/codeception": "*"
   }
 }

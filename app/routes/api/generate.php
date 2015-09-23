@@ -42,8 +42,10 @@ $app->post('/api/generate', function () use ($app)
     ]);
 
     $newLink->update([
-        "code" => base_convert($newLink->id, 10, 36)
+        "code" => $newLink->generateShortcode()
     ]);
+
+    $app->response->setStatus(201);
 
     return $app->response->write(json_encode([
         "url"=>$payload->url,
