@@ -24,7 +24,7 @@ class GenerateTest extends PHPUnit_Framework_TestCase
 
     public function testGenerateNewShortcode()
     {
-        $data = json_encode(['url'=>'http://facebook.com']);
+        $data = json_encode(['url'=>'http://msn.com']);
         $request = $this->client->request('/api/generate', []);
         $request->setBody($data);
         $response = $request->send();

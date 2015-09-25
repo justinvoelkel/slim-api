@@ -14,7 +14,7 @@ extensions:
         - Codeception\Extension\RunFailed
 modules:
     endabled:
-        -REST:
+        - REST:
             url: 'http://testapi.dev'
             depends: PhpBrowser
             part: Json
