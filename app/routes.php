@@ -9,7 +9,4 @@
 require 'routes/home.php';
 require 'routes/code.php';
 require 'routes/api/generate.php';
-
-$app->get('/api/generate', function(){
-    echo 'test';
-});
+require 'routes/api/remove.php';
